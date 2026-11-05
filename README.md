@@ -4,6 +4,10 @@
 
 一个纯静态、零依赖、完全离线的打卡应用。名字取「回头是岸」的岸：不评判、不催促，只负责把每一天留下来。
 
+**安卓安装包**：[`guian-1.0.apk`](https://github.com/YUI1314520/guian/releases/download/v1.0/guian-1.0.apk)（298 KB，Android 5.0+，不需要联网）　**网页版**：双击 `index.html` 就能跑
+
+![界面总览](preview/00-overview.png)
+
 ---
 
 ## 打开方式
@@ -104,7 +108,7 @@ URL 加 `?demo=1`：造一份「26 天 → 破戒 → 12 天」的假数据，�
 
 ## Android 安装包（APK）
 
-安装包：[`归岸-1.0.apk`](../归岸-1.0.apk)（298 KB，v1.0，包名 `com.guian.app`）
+安装包：[`guian-1.0.apk`](https://github.com/YUI1314520/guian/releases/download/v1.0/guian-1.0.apk)（298 KB，v1.0，包名 `com.guian.app`，见 [Releases](https://github.com/YUI1314520/guian/releases)）
 
 - **系统要求**：Android 5.0（API 21）及以上；编译目标 API 34。
 - **安装**：把 APK 传到手机 → 点开 → 允许「安装未知来源应用」（各家 ROM 位置不同，一般在「设置 → 应用 → 特殊权限」）→ 安装完成后桌面出现「归岸」。
