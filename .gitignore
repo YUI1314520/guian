@@ -1,0 +1,19 @@
+# 自动化截图与临时产物
+.shots/
+tests/__pycache__/
+.tests/__pycache__/
+*.pyc
+
+# 宣传图的中间文件（可由 tools/make_poster.py 重新生成）
+promo/promo.html
+promo/promo@2x.png
+promo/fonts/
+
+# 系统杂物
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Android 构建产物
+android/build/
+android/assets/www/

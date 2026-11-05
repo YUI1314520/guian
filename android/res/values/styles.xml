@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="@android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">#F5FBF6</item>
+        <item name="android:statusBarColor">#F5FBF6</item>
+        <item name="android:navigationBarColor">#F5FBF6</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <!-- WebView 里按住/点击元素时的系统高亮块，默认是主题 accent 的蓝，这里彻底去掉 -->
+        <item name="android:textColorHighlight">@android:color/transparent</item>
+        <item name="android:colorControlHighlight">@android:color/transparent</item>
+    </style>
+</resources>

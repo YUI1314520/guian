@@ -1,0 +1,26 @@
+{
+  "name": "归岸 · 自律打卡",
+  "short_name": "归岸",
+  "description": "每天一次打卡，记录连续天数、里程碑与冲动时刻。数据只保存在本机。",
+  "lang": "zh-CN",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F5FBF6",
+  "theme_color": "#1E6B58",
+  "icons": [
+    {
+      "src": "assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icon-maskable.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}

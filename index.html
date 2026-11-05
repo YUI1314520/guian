@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<title>归岸 · 自律打卡</title>
+<meta name="description" content="归岸是一款本地离线的自律打卡应用：每天一次打卡，记录连续天数、里程碑与冲动时刻。" />
+<meta name="theme-color" content="#F5FBF6" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+
+<!-- 图标精灵：手绘线性图标，沿用 Material Symbols 的 24px 网格 -->
+<svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M4.8 12.6l4.6 4.6L19.4 7.2"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="3.5"/><path d="M3.5 10h17M8 3.2v3.4M16 3.2v3.4"/><path d="M7.6 14.2h2.2M14.2 14.2h2.2M7.6 17.4h2.2M14.2 17.4h2.2"/></symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M20.2 4.2C11 4.2 4.4 8.6 4.4 16.1c0 1.2.2 2.3.6 3.3 3.2.8 6.3.3 8.7-1.3 3.6-2.4 6.5-7 6.5-13.9Z"/><path d="M4.6 20.4c1.2-5.9 4.6-9.7 9.6-11.8"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8.2" r="3.6"/><path d="M4.8 20c.9-3.7 3.6-5.6 7.2-5.6s6.3 1.9 7.2 5.6"/></symbol>
+    <symbol id="i-undo" viewBox="0 0 24 24"><path d="M7.8 5.4L3.8 9.4l4 4"/><path d="M3.8 9.4h9.4a5.6 5.6 0 010 11.2H9.6"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><path d="M14.6 5.6L8.2 12l6.4 6.4"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path d="M9.4 5.6L15.8 12l-6.4 6.4"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6.2 6.2l11.6 11.6M17.8 6.2L6.2 17.8"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3.8v10.8M7.4 10.2L12 14.8l4.6-4.6"/><path d="M4.8 19.4h14.4"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15.2V4.4M7.4 9L12 4.4 16.6 9"/><path d="M4.8 19.4h14.4"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.8 6.8h14.4M9.2 6.8V4.6h5.6v2.2"/><path d="M6.8 6.8l.9 12.4h8.6l.9-12.4"/><path d="M10.4 10.6v5.2M13.6 10.6v5.2"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.1"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.1 5.1l1.7 1.7M17.2 17.2l1.7 1.7M18.9 5.1l-1.7 1.7M6.8 17.2l-1.7 1.7"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.2 14.6A8.6 8.6 0 019.4 3.8a8.6 8.6 0 1010.8 10.8Z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3.2l7 2.8v5.1c0 4.9-2.9 7.9-7 9.7-4.1-1.8-7-4.8-7-9.7V6l7-2.8Z"/><path d="M9.2 11.8l2 2 3.6-3.8"/></symbol>
+    <symbol id="i-timer" viewBox="0 0 24 24"><circle cx="12" cy="13.4" r="7.4"/><path d="M12 9.8v3.8l2.6 1.8M9.2 2.6h5.6"/></symbol>
+    <symbol id="i-breath" viewBox="0 0 24 24"><path d="M3.2 8.4h9.4a2.8 2.8 0 10-2.8-2.8"/><path d="M3.2 12.2h13.2a2.9 2.9 0 11-2.9 2.9"/><path d="M3.2 16h6.2"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3.2l1.9 5.4 5.4 1.9-5.4 1.9L12 17.8l-1.9-5.4L4.7 10.5l5.4-1.9L12 3.2Z"/><path d="M18.6 16.4l.7 1.9 1.9.7-1.9.7-.7 1.9-.7-1.9-1.9-.7 1.9-.7.7-1.9Z"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.2"/><circle cx="12" cy="12" r="3.4"/><path d="M12 1.8v2.6M12 19.6v2.6M1.8 12h2.6M19.6 12h2.6"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6"/><path d="M12 10.8v5.4"/><circle cx="12" cy="7.9" r=".6" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4.6 12h14.2M13.4 6.4l5.6 5.6-5.6 5.6"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4.6 19.4h4l10-10a2.5 2.5 0 00-3.5-3.5l-10 10v3.5Z"/><path d="M13.4 7.2l3.4 3.4"/></symbol>
+    <symbol id="i-fire" viewBox="0 0 24 24"><path d="M12 3.2c3.2 3.6 5.2 6.2 5.2 9.1a5.2 5.2 0 01-10.4 0c0-1.9.9-3.4 2.4-4.9.6 1 1.2 1.7 1.9 2.1.9-1.9.9-4 .9-6.3Z"/></symbol>
+    <symbol id="i-more" viewBox="0 0 24 24"><circle cx="6" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="18" cy="12" r="1.4" fill="currentColor" stroke="none"/></symbol>
+  </defs>
+</svg>
+
+<div class="ambient" aria-hidden="true">
+  <span class="grain"></span>
+</div>
+
+<div class="app">
+  <header class="appbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"><svg class="icon"><use href="#i-leaf"/></svg></span>
+      <span class="brand-name">归岸</span>
+    </div>
+    <div class="appbar-actions">
+      <span class="pill" id="goal-pill" title="当前目标">目标 90 天</span>
+      <button class="icon-btn" id="theme-btn" type="button" aria-label="切换深浅色">
+        <svg class="icon" id="theme-icon"><use href="#i-moon"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============ 今日 ============ -->
+    <section class="view" id="view-today" data-view="today">
+      <div class="hero">
+        <p class="eyebrow" id="today-eyebrow">下午好 · 11 月 5 日</p>
+        <div class="streak" aria-live="polite">
+          <span class="streak-num" id="streak-num">0</span>
+          <span class="streak-unit">天</span>
+        </div>
+        <p class="streak-sub" id="streak-sub">连续打卡 · 最长 0 天</p>
+      </div>
+
+      <div class="check-zone">
+        <button class="check-btn" id="check-btn" type="button" aria-pressed="false">
+          <span class="check-ring" aria-hidden="true"></span>
+          <span class="check-inner">
+            <svg class="icon check-icon" aria-hidden="true"><use href="#i-check"/></svg>
+            <span class="check-label" id="check-label">打卡</span>
+          </span>
+        </button>
+        <p class="check-hint" id="check-hint">点一下，把今天留下</p>
+      </div>
+
+      <div class="card stats-card">
+        <div class="stat">
+          <span class="stat-num" id="stat-total">0</span>
+          <span class="stat-label">累计打卡</span>
+        </div>
+        <span class="stat-divider" aria-hidden="true"></span>
+        <div class="stat">
+          <span class="stat-num" id="stat-best">0</span>
+          <span class="stat-label">最长连续</span>
+        </div>
+        <span class="stat-divider" aria-hidden="true"></span>
+        <div class="stat">
+          <span class="stat-num" id="stat-restart">0</span>
+          <span class="stat-label">重新开始</span>
+        </div>
+      </div>
+
+      <div class="card milestone-card">
+        <div class="card-head">
+          <h2 class="card-title">下一个里程碑</h2>
+          <span class="chip chip-tonal" id="next-badge">起岸</span>
+        </div>
+        <div class="progress" role="progressbar" aria-label="里程碑进度" aria-valuemin="0" aria-valuemax="100" id="milestone-bar" aria-valuenow="0">
+          <span class="progress-fill" id="milestone-fill"></span>
+        </div>
+        <p class="muted small" id="milestone-text">还差 3 天 · 保持现在就好</p>
+        <div class="badge-strip" id="badge-strip" aria-label="最近里程碑"></div>
+      </div>
+
+      <figure class="quote-card">
+        <svg class="quote-mark" aria-hidden="true"><use href="#i-spark"/></svg>
+        <blockquote id="quote">你不是在戒掉什么，你是在把自己还给自己。</blockquote>
+        <figcaption class="muted small">今日一句</figcaption>
+      </figure>
+
+      <button class="text-btn danger-text" id="relapse-btn" type="button">我破戒了 · 重新开始</button>
+    </section>
+
+    <!-- ============ 日历 ============ -->
+    <section class="view" id="view-calendar" data-view="calendar" hidden>
+      <div class="page-head">
+        <div>
+          <p class="eyebrow">回看</p>
+          <h1 class="page-title">每一天</h1>
+        </div>
+        <button class="text-btn" id="cal-reset" type="button">回到本月</button>
+      </div>
+
+      <div class="card cal-card">
+        <div class="cal-head">
+          <button class="icon-btn" id="cal-prev" type="button" aria-label="上个月"><svg class="icon"><use href="#i-left"/></svg></button>
+          <h2 class="cal-title" id="cal-title">2026 年 11 月</h2>
+          <button class="icon-btn" id="cal-next" type="button" aria-label="下个月"><svg class="icon"><use href="#i-right"/></svg></button>
+        </div>
+        <div class="cal-week" aria-hidden="true">
+          <span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span>
+        </div>
+        <div class="cal-grid" id="cal-grid" role="grid" aria-label="打卡日历"></div>
+        <div class="cal-legend">
+          <span class="legend-item"><i class="dot dot-checked"></i>已打卡</span>
+          <span class="legend-item"><i class="dot dot-today"></i>今天</span>
+          <span class="legend-item"><i class="dot dot-relapse"></i>重新开始</span>
+        </div>
+      </div>
+
+      <div class="card stats-card month-stats">
+        <div class="stat">
+          <span class="stat-num" id="month-checked">0</span>
+          <span class="stat-label">本月打卡</span>
+        </div>
+        <span class="stat-divider" aria-hidden="true"></span>
+        <div class="stat">
+          <span class="stat-num" id="month-rate">0%</span>
+          <span class="stat-label">本月打卡率</span>
+        </div>
+        <span class="stat-divider" aria-hidden="true"></span>
+        <div class="stat">
+          <span class="stat-num" id="month-relapse">0</span>
+          <span class="stat-label">本月重启</span>
+        </div>
+      </div>
+
+      <p class="hint-line">点亮过去的一格可以补记，点第二次撤销。</p>
+    </section>
+
+    <!-- ============ 应急 ============ -->
+    <section class="view" id="view-sos" data-view="sos" hidden>
+      <div class="page-head">
+        <div>
+          <p class="eyebrow">此刻</p>
+          <h1 class="page-title">先等一等</h1>
+        </div>
+      </div>
+      <p class="lede">冲动像浪，会来，也会退。<br />在这里待三分钟，再决定也不迟。</p>
+
+      <div class="card breath-card">
+        <div class="breath-stage">
+          <div class="breath-halo" id="breath-halo" aria-hidden="true"></div>
+          <div class="breath-orb" id="breath-orb" aria-hidden="true">
+            <svg class="icon breath-icon"><use href="#i-breath"/></svg>
+          </div>
+          <p class="breath-phase" id="breath-phase" aria-live="polite">准备好了吗</p>
+          <p class="breath-count" id="breath-count" aria-hidden="true">4 · 4 · 6</p>
+        </div>
+        <button class="btn btn-filled btn-block" id="breath-btn" type="button">开始 90 秒呼吸</button>
+        <p class="muted small center" id="breath-tip">吸气 4 秒 · 停 4 秒 · 呼气 6 秒</p>
+      </div>
+
+      <div class="card timer-card">
+        <div class="timer-row">
+          <div class="timer-ring" id="timer-ring" style="--p:0">
+            <span class="timer-time" id="timer-time">10:00</span>
+          </div>
+          <div class="timer-copy">
+            <h2 class="card-title">延迟 10 分钟</h2>
+            <p class="muted small" id="timer-note">十分钟后，冲动通常会弱一半。</p>
+            <button class="btn btn-tonal" id="timer-btn" type="button">开始计时</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card action-card">
+        <h2 class="card-title">现在就做一件小事</h2>
+        <div class="action-list" id="action-list"></div>
+      </div>
+
+      <div class="card note-card">
+        <h2 class="card-title">写下此刻</h2>
+        <p class="muted small">不用完整，几个词也可以。只存在这台设备上。</p>
+        <label class="field">
+          <span class="sr-only">此刻的想法</span>
+          <textarea id="note-input" rows="3" maxlength="500" placeholder="现在是什么感觉？在哪里？刚发生了什么？"></textarea>
+        </label>
+        <div class="note-actions">
+          <span class="muted small" id="note-status"></span>
+          <button class="btn btn-filled" id="note-save" type="button">收好这句话</button>
+        </div>
+      </div>
+
+      <div class="card note-history">
+        <h2 class="card-title">最近写下的话</h2>
+        <ul class="note-list" id="note-list"></ul>
+      </div>
+    </section>
+
+    <!-- ============ 我的 ============ -->
+    <section class="view" id="view-me" data-view="me" hidden>
+      <div class="page-head">
+        <div>
+          <p class="eyebrow">这一程</p>
+          <h1 class="page-title">我的岸</h1>
+        </div>
+      </div>
+
+      <div class="card profile-card">
+        <div class="profile-row">
+          <div class="avatar" aria-hidden="true"><svg class="icon"><use href="#i-leaf"/></svg></div>
+          <div class="profile-copy">
+            <p class="profile-title" id="profile-start">从 2026 年 11 月 5 日开始</p>
+            <p class="muted small" id="profile-days">已经走了 0 天 · 目标 90 天</p>
+          </div>
+          <button class="icon-btn" id="goal-edit" type="button" aria-label="修改目标"><svg class="icon"><use href="#i-edit"/></svg></button>
+        </div>
+        <div class="profile-meta">
+          <span class="chip chip-tonal"><svg class="icon"><use href="#i-shield"/></svg>数据只在本机</span>
+          <span class="chip chip-tonal"><svg class="icon"><use href="#i-target"/></svg><span id="goal-chip">90 天目标</span></span>
+        </div>
+      </div>
+
+      <div class="card badge-card">
+        <div class="card-head">
+          <h2 class="card-title">里程碑</h2>
+          <span class="muted small" id="badge-progress">0 / 12</span>
+        </div>
+        <div class="badge-grid" id="badge-grid"></div>
+      </div>
+
+      <div class="card list-card">
+        <h2 class="card-title">外观</h2>
+        <div class="segmented" id="theme-seg" role="group" aria-label="主题">
+          <button type="button" data-mode="auto">跟随系统</button>
+          <button type="button" data-mode="light">浅色</button>
+          <button type="button" data-mode="dark">深色</button>
+        </div>
+      </div>
+
+      <div class="card list-card">
+        <h2 class="card-title">数据</h2>
+        <button class="row-btn" id="export-btn" type="button">
+          <svg class="icon"><use href="#i-download"/></svg>
+          <span class="row-copy"><b>导出备份</b><small>下载一份 JSON，换设备也不丢</small></span>
+          <svg class="icon chev"><use href="#i-right"/></svg>
+        </button>
+        <button class="row-btn" id="import-btn" type="button">
+          <svg class="icon"><use href="#i-upload"/></svg>
+          <span class="row-copy"><b>导入备份</b><small>用之前导出的 JSON 恢复</small></span>
+          <svg class="icon chev"><use href="#i-right"/></svg>
+        </button>
+        <button class="row-btn danger-text" id="clear-btn" type="button">
+          <svg class="icon"><use href="#i-trash"/></svg>
+          <span class="row-copy"><b>清空所有数据</b><small>不可恢复，请先导出</small></span>
+          <svg class="icon chev"><use href="#i-right"/></svg>
+        </button>
+        <input type="file" id="import-file" accept="application/json,.json" hidden />
+      </div>
+
+      <div class="card about-card">
+        <h2 class="card-title">关于归岸</h2>
+        <p class="muted small">归岸不评判、不催促。打卡只是记录，复发也只是数据。<br />所有内容保存在浏览器 localStorage 中，不上传、不统计、不联网。</p>
+        <p class="muted tiny">v1.0 · Material Design 3 · 离线可用</p>
+      </div>
+
+      <p class="footer-note">如果困扰已经影响生活，寻求专业帮助是一种力量，不是失败。</p>
+    </section>
+  </main>
+
+  <nav class="nav" aria-label="主导航">
+    <button class="nav-item is-active" data-go="today" type="button" aria-current="page">
+      <span class="nav-indicator"><svg class="icon"><use href="#i-leaf"/></svg></span>
+      <span class="nav-label">今日</span>
+    </button>
+    <button class="nav-item" data-go="calendar" type="button">
+      <span class="nav-indicator"><svg class="icon"><use href="#i-calendar"/></svg></span>
+      <span class="nav-label">日历</span>
+    </button>
+    <button class="nav-item" data-go="sos" type="button">
+      <span class="nav-indicator"><svg class="icon"><use href="#i-breath"/></svg></span>
+      <span class="nav-label">应急</span>
+    </button>
+    <button class="nav-item" data-go="me" type="button">
+      <span class="nav-indicator"><svg class="icon"><use href="#i-user"/></svg></span>
+      <span class="nav-label">我的</span>
+    </button>
+  </nav>
+</div>
+
+<div class="scrim" id="scrim" hidden></div>
+<div class="dialog-host" id="dialog-host" hidden></div>
+<div class="snackbar" id="snackbar" role="status" aria-live="polite" hidden>
+  <span class="snack-text" id="snack-text"></span>
+  <button class="snack-action" id="snack-action" type="button" hidden>撤销</button>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
